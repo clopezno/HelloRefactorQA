@@ -17,22 +17,43 @@ public class Movie {
 	public static final int NEW_RELEASE = 1;
 
 	private String _title;
-	private int _priceCode;
+	private Price _priceCode;
 
 	public Movie(String title, int priceCode) {
 		_title = title;
-		_priceCode = priceCode;
+		setPriceCode(priceCode);
 	}
 
 	public int getPriceCode() {
-		return _priceCode;
+		return _priceCode.getPriceCode();
 	}
 
 	public void setPriceCode(int arg) {
-		_priceCode = arg;
+		switch (arg){
+		case REGULAR: 
+			_priceCode = new RegularPrice();
+			break;
+		case CHILDRENS:
+			_priceCode = new ChildrenPrice();
+			break;
+		case NEW_RELEASE:
+			_priceCode = new NewReleasePrice();
+			break;
+
+		default:
+			throw new IllegalArgumentException("Incorrect PriceCode");            
+		}
 	}
 
 	public String getTitle() {
 		return _title;
+	}
+
+	public double getCharge(int daysRented) {
+		return _priceCode.getCharge(daysRented);
+	}
+
+	public int getFrequentRenterPoint(int daysRented) {
+		return _priceCode.getFrequentRenterPoint(daysRented);
 	}
 }
