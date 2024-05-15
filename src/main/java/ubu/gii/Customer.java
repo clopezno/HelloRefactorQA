@@ -42,15 +42,20 @@ public class Customer {
 			
 			frequentRenterPoints = addFrequentRenterPoints(frequentRenterPoints);
 			frequentRenterPoints = each.addBonusForTwoDayNewReleaseRental(frequentRenterPoints, this);
-			// show figures for this rental
-			result += "\t" + each.getMovie().getTitle() + "\t"
-					+ String.valueOf(thisAmount) + "\n";
+			result = showFiguresForThisRental(result, thisAmount, each);
 			totalAmount += thisAmount;
 		}
 		// add footer lines
 		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
 		result += "You earned " + String.valueOf(frequentRenterPoints)
 				+ " frequent renter points";
+		return result;
+	}
+
+	private String showFiguresForThisRental(String result, double thisAmount, Rental each) {
+		// show figures for this rental
+		result += "\t" + each.getMovie().getTitle() + "\t"
+				+ String.valueOf(thisAmount) + "\n";
 		return result;
 	}
 
