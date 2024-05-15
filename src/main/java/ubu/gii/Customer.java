@@ -37,12 +37,12 @@ public class Customer {
 		String result = "Rental Record for " + getName() + "\n";
 		while (rentals.hasNext()) {
 			double thisAmount = 0;
-			Rental each = rentals.next();
-			thisAmount = each.getMovie().determineAmountsForEachMovie(each, thisAmount);
+			Rental alquilerActual = rentals.next();
+			thisAmount = alquilerActual.getMovie().determineAmountsForEachMovie(alquilerActual, thisAmount);
 			
 			frequentRenterPoints = addFrequentRenterPoints(frequentRenterPoints);
-			frequentRenterPoints = each.addBonusForTwoDayNewReleaseRental(frequentRenterPoints, this);
-			result = showFiguresForThisRental(result, thisAmount, each);
+			frequentRenterPoints = alquilerActual.addBonusForTwoDayNewReleaseRental(frequentRenterPoints, this);
+			result = showFiguresForThisRental(result, thisAmount, alquilerActual);
 			totalAmount += thisAmount;
 		}
 		return addFooterLines(totalAmount, frequentRenterPoints, result);
