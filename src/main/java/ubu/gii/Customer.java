@@ -45,6 +45,10 @@ public class Customer {
 			result = showFiguresForThisRental(result, thisAmount, each);
 			totalAmount += thisAmount;
 		}
+		return addFooterLines(totalAmount, frequentRenterPoints, result);
+	}
+
+	private String addFooterLines(double totalAmount, int frequentRenterPoints, String result) {
 		// add footer lines
 		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
 		result += "You earned " + String.valueOf(frequentRenterPoints)
