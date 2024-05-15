@@ -15,8 +15,14 @@ public class VideoClubAplicacion {
 		c1.addRental(r1);
 		c1.addRental(r2);
 		c1.addRental(r3);
-
+		
+		// Imprime historial de alquiler en texto plano
 		System.out.println(c1.statement());
+		
+		System.out.println("\n---------------------------------------\n");
+		
+		// Imprime historial de alquiler en formato html
+		System.out.println(c1.statement(true));
 
 	}
 
