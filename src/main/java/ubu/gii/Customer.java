@@ -50,8 +50,6 @@ public class Customer {
 			double thisAmount = 0;
 			Rental alquilerActual = rentals.next();
 			thisAmount = alquilerActual.getMovie().determineAmountsForEachMovie(alquilerActual, thisAmount);
-			
-			frequentRenterPoints = addFrequentRenterPoints(frequentRenterPoints);
 			frequentRenterPoints = alquilerActual.addBonusForTwoDayNewReleaseRental(frequentRenterPoints, this);
 			result = showFiguresForThisRental(result, thisAmount, alquilerActual, isHtml);
 			totalAmount += thisAmount;
@@ -85,9 +83,4 @@ public class Customer {
 	    return result;
 	}
 
-	int addFrequentRenterPoints(int frequentRenterPoints) {
-		// add frequent renter points
-		frequentRenterPoints++;
-		return frequentRenterPoints;
-	}
 }

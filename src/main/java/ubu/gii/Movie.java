@@ -17,19 +17,31 @@ public class Movie {
 	public static final int NEW_RELEASE = 1;
 
 	private String _title;
-	private int _priceCode;
+	private Price _priceCode;
 
 	public Movie(String title, int priceCode) {
 		_title = title;
-		_priceCode = priceCode;
+		setPriceCode(priceCode);
 	}
 
-	public int getPriceCode() {
+	public Price getPriceCode() {
 		return _priceCode;
 	}
 
 	public void setPriceCode(int arg) {
-		_priceCode = arg;
+		switch (arg) {
+		case REGULAR: 
+			_priceCode = new RegularPrice();
+			break;
+		case CHILDRENS:
+			_priceCode = new ChildrenPrice();
+			break;
+		case NEW_RELEASE:
+			_priceCode = new NewReleasePrice();
+			break;
+		default:
+			throw new IllegalArgumentException("No se reconoce el PriceCode especificado"); 
+		}
 	}
 
 	public String getTitle() {
@@ -37,22 +49,15 @@ public class Movie {
 	}
 
 	double determineAmountsForEachMovie(Rental rental, double thisAmount) {
-		// determine amounts for each line
-		switch (rental.getMovie().getPriceCode()) {
-		case Movie.REGULAR:
-			thisAmount += 2;
-			if (rental.getDaysRented() > 2)
-				thisAmount += (rental.getDaysRented() - 2) * 1.5;
-			break;
-		case Movie.NEW_RELEASE:
-			thisAmount += rental.getDaysRented() * 3;
-			break;
-		case Movie.CHILDRENS:
-			thisAmount += 1.5;
-			if (rental.getDaysRented() > 3)
-				thisAmount += (rental.getDaysRented() - 3) * 1.5;
-			break;
+		
+		if (rental.getMovie().getPriceCode() instanceof RegularPrice) {
+			thisAmount = new RegularPrice().getCharge(rental.getDaysRented());
+		} else if (rental.getMovie().getPriceCode() instanceof NewReleasePrice) {
+			thisAmount = new NewReleasePrice().getCharge(rental.getDaysRented());
+		} else if (rental.getMovie().getPriceCode() instanceof ChildrenPrice) {
+			thisAmount = new ChildrenPrice().getCharge(rental.getDaysRented());
 		}
+		
 		return thisAmount;
 	}
 }
